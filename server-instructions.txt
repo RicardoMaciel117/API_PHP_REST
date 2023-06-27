@@ -1,0 +1,13 @@
+# Iniciar servidor
+php -S localhost:8000 router.php
+
+# Hacer Post con curl
+
+curl -X 'POST' http://localhost:8000/books -d '{ "titulo": "Nuevo libro", "id_autor": 1, "id_genero": 4 }'
+
+# Hacer Put con curl
+curl -X 'PUT' http://localhost:8000/books/1 -d '{ "titulo": "Nuevo libro", "id_autor": 1, "id_genero": 4 }'
+
+
+Hacer DELETE con curl
+curl -X 'DELETE' http://localhost:8000/books/1

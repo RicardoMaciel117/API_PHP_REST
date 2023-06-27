@@ -51,15 +51,41 @@ switch( strtoupper($_SERVER['REQUEST_METHOD']) ){
             }
             
         }
-        
-        
         break;
     case 'POST':
+        $json = file_get_contents('php://input');
+        
+        $books[] = json_decode( $json, true );
+        //echo array_keys( $books )[ count($books) - 1 ];
+        
+        echo json_encode( $books ).PHP_EOL;
+        
         break;
     case 'PUT':
+        
+        //Validar que el recurso buscado exista
+        if( !empty($resourceId) && array_key_exists($resourceId, $books) ){
+            $json = file_get_contents('php://input');
+            $books[ $resourceId ] = json_decode( $json, true );
+            
+            echo json_encode( $books );
+        }
         break;
     case 'DELETE':
+        
+        if( !empty($resourceId) && array_key_exists($resourceId, $books) ){
+            unset( $books[$resourceId] );
+        }
+        
+        echo json_encode( $books );
+        
         break;
 }
+
+
+
+
+
+
 
 ?>

@@ -20,7 +20,6 @@ else if (preg_match('/\/([^\/]+)\/?/', $_SERVER["REQUEST_URI"], $matches) ) {
 }
 else {
     error_log('No matches');
-    echo "?";
     http_response_code( 404 );
 }
 
