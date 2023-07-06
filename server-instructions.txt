@@ -1,6 +1,9 @@
 # Iniciar servidor
 php -S localhost:8000 router.php
 
+php -S localhost:8001 auth_server.php
+
+
 # Hacer Post con curl
 
 curl -X 'POST' http://localhost:8000/books -d '{ "titulo": "Nuevo libro", "id_autor": 1, "id_genero": 4 }'
@@ -11,3 +14,8 @@ curl -X 'PUT' http://localhost:8000/books/1 -d '{ "titulo": "Nuevo libro", "id_a
 
 Hacer DELETE con curl
 curl -X 'DELETE' http://localhost:8000/books/1
+
+
+curl http://localhost:8001 -X 'POST' -H 'X-Client-Id: 1' -H 'X-Secret:SuperSecreto!'
+
+curl http://localhost:8000 -H 'X-Token: c4b02a1525349e7888d4140dcd524aff2d6296dd'
