@@ -1,5 +1,30 @@
 <?php
+/*
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+*/
+header('Access-Control-Allow-Origin: *');
+/*
+if (!array_key_exists('HTTP_X_TOKEN', $_SERVER)){
+    die;
+}
 
+
+$url = 'http://localhost:8001';
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ["X-Token: {$SERVER['HTTP_X_TOKEN']}"]);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$ret = curl_exec($ch);
+
+if($ret === 'true'){
+    die;
+}
+*/
 //Define Allowed reosurces
 $allowedResourceTypes = [
     'books',
@@ -11,6 +36,7 @@ $allowedResourceTypes = [
 $resourceType = $_GET['resource_type'];
 
 if( !in_array($resourceType, $allowedResourceTypes) ){
+    http_response_code(400);
     die;
 }
 
@@ -49,6 +75,9 @@ switch( strtoupper($_SERVER['REQUEST_METHOD']) ){
             if(array_key_exists($resourceId, $books)){
                 echo json_encode($books[ $resourceId ]);
             }
+            else{
+                http_response_code(404);
+            }
             
         }
         break;
@@ -84,7 +113,21 @@ switch( strtoupper($_SERVER['REQUEST_METHOD']) ){
 
 
 
+/*
+* Metodo de autenticación por hashes
 
+if(!array_key_exists('HTTP_X_HASH', $_SERVER) || !array_key_exists('HTTP_X_TIMESTAMP', $_SERVER) || !array_key_exists('HTTP_X_UID', $_SERVER)){
+    die;
+}
+
+list( $hash, $uid, $timestamp ) = [$_SERVER['HTTP_X_HASH'], $_SERVER['HTTP_X_UID'], $_SERVER['HTTP_X_TIMESTAMP']];
+
+$secret = 'Nose lo cuente a nandie pap';
+
+$newHash = sha1( $uid.$timestamp.$secret );
+
+*
+*/
 
 
 
